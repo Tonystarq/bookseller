@@ -1,0 +1,81 @@
+{% include 'base1.html' %}
+{% load static %}
+{% block content %}
+<div class="input-group">
+    <div class="form-outline">
+      <input type="search" id="form1" class="form-control" />
+      <label class="form-label" for="form1">Search</label>
+    </div>
+    <button type="button" class="btn btn-primary">
+      <i class="fas fa-search"></i>
+    </button>
+  </div>
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Sold Books Details</h4>
+               
+            </div>
+            {% include 'includes/messages.html' %}
+            <div class= "btn btn-primary">
+
+            </div>
+            
+            <div class="card-body">
+                <div class="table-responsive">
+                 <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%" >
+                    
+                    <thead>
+                        <tr>
+                          <th>#No</th>
+                          <th>Book Name</th>
+                          <th>Author Name </th>
+                          <th>Publishing Year  </th>                       
+                          <th>Cust ID </th>
+                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for customer  in customer  %}
+                            <tr id="printTable">
+                                <th scope="row">{{forloop.counter}}</th>
+                                <td>{{customer.bookname}}</td>
+                                <td>{{customer.author}}</td>
+                                <td>{{customer.publishingyear}}</td>
+                                <td>{{customer.ref_id}}</td>
+                                
+                                
+                                
+                               
+                                
+                            </tr>
+                        
+
+                        
+                        {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script>
+  function myfunc(){
+
+   var divToPrint=document.getElementById("printTable");
+   newWin= window.open("");
+   newWin.document.write(divToPrint.outerHTML);
+   newWin.print();
+   newWin.close();
+  }
+</script>
+
+    
+{% endblock  %}

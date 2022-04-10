@@ -1,0 +1,32 @@
+
+{% extends 'base1.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+       
+        
+        <div class="form-head d-md-flex mb-sm-4 mb-3 align-items-start">
+            <div class="me-auto  d-lg-block">
+                <h2 class="text-black font-w600">Dashboard</h2>
+                <p class="mb-0">Welcome to Book Seller </p>
+            </div>
+            
+            
+            <a href="{% url 'admin_home' %}"class="btn btn-primary rounded light me-3">Refresh</a>
+            
+        </div>
+        <div class="text-center mb-3">
+            <a  ><img width=1600 height=800 src="{% static 'images/1234321.png' %}" alt=""></a>
+        </div>
+        {% include 'includes/messages.html' %}
+        {% block custom_js %}
+  <script></script>
+  {% endblock custom_js %}
+
+
+{% endblock  %}

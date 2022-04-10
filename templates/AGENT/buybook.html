@@ -1,0 +1,86 @@
+{% include 'AGENT/base_template.html' %}
+{% load static %}}
+{% block content %}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Buy</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">Buy Book</a></li>
+            </ol>
+        </div>
+        
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Buy Book</h4>
+                    </div>
+                    {% include 'includes/messages.html' %}
+                    <div class="btn btn-primary">
+
+                    </div>
+                    
+                       
+                    <div class="card-body">
+                        <form action="{% url 'buybook1' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="row form-material">
+                                
+                                <div class="col-xl-3 col-xxl-6 col-md-6 mb-3">
+                                    <label class="form-label">Book Name</label>
+                                    <input type= "text" class="form-control" id="bookname"  name="bookname" value="{% for i in bookname %}{{i.bookname}}{% endfor %}">
+                                </div>
+                                <input type="text" class="form-control" name = "vehicleid" value = "{% for i  in bookname  %} {{i.id}}{% endfor %}" hidden  >
+                                
+                                <div class="col-xl-3 col-xxl-6 col-md-6 mb -3">
+                                    <label class="form-label">Book Author </label>
+                                    <input type="text" class="form-control" id="author" name="author" value= "{% for i in bookname %}{{i.author}}{% endfor %} " readonly>
+                                </div>
+                               
+                                <div class="col-xl-3 col-xxl-6 col-md-6 mb-3">
+                                    <label class="form-label">Publishing Year </label>
+                                    <input type="number" class="form-control"  id="publishingyear" name="publishingyear" value="{% for i in bookname %}{{i.publishingyear}}{% endfor %}">
+                                </div>
+                                <div class="col-xl-3 col-xxl-6 col-md-6">
+                                    <label class="form-label">Price </label>
+                                    <input type="number" class="form-control"  id="Price"  name="Price" value="{% for i in bookname %}{{i.Price}}{% endfor %}">
+                                </div>
+                                
+                                
+                                </div>
+                                <div class="col-xl-3 col-xxl-6 col-md-6">
+                                    <label class="form-label">Cust ID</label>
+                                    <input type="text" class="form-control" name="ref_id" id="ref_id" value = "{{code}}" readonly >
+                                </div>
+                                
+                                  
+                              
+                               
+                                
+                                
+                            </div>
+                            <div class="col-xl-3 col-xxl-6 col-md-6">
+                                <button type="submit" class="btn btn-primary">Buy</button>
+                            </div>
+                        </form>
+                        
+                    </div>
+                
+                </div>
+            </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+      $("#datetimepicker1").datetimepicker();
+    });
+    $(function () {
+        $("#datetimepicker2").datetimepicker();
+      });
+  </script>
+
+    {% endblock %}

@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Edit Car</a></li>
+                {% comment %} <li class="breadcrumb-item active"><a href="javascript:void(0)">Book Plot</a></li> {% endcomment %}
+            </ol>
+        </div>
+            <div class="col-12">
+                
+                <div class="card">
+                    <div class="card-header bg-dark ">
+                        <h4 class="card-title text-white">Edit Car</h4>
+                    </div>
+                    
+                        {% include 'includes/messages.html' %}
+                    
+                    <div class="card-body">
+                        <form action="{% url 'update_bookplot' %}" enctype="multipart/form-data" method = "POST">
+                            {% csrf_token %}
+                        <div class="form-material">
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Ref ID</label>
+                                <input type="text" class="form-control" name="ref_id" id="ref_id" value = "{% for i in bookplot  %}{{i.ref_id}}{% endfor %}" readonly >
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">User ID</label>
+                                {% comment %} <input type="text" class="form-control" name="user_id" id="user_id" value = "{% for i in bookplot  %}{{i.user_id}}{% endfor %}" > {% endcomment %}
+                                <select class="form-select" aria-label="Default select example" name="user_id"  required>
+                                    
+                                    <option selected> ---Select---</option>
+                                    {% for i in cust_id %}
+                                    <option value="{{i.id}}">{{i.customer_id}}</option>
+                                    {% endfor %}                                 
+                                    
+                                </select>
+                            </div>
+                            <input type="text" class="form-control" name = "bookplot_id" value = "{% for i  in bookplot  %} {{i.id}}{% endfor %}" hidden >
+                            
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Plot Number</label>
+                                {% comment %} <input type="text" id="plot_number" class="form-control" name="plot_number"  > {% endcomment %}
+                                {% comment %} <select class="form-select" aria-label="Default select example" name="plot_number"  required>
+                                    
+                                    <option selected> ---Select---</option>
+                                    {% for i in plot_no %}
+                                    <option value="{{i.id}}">{{i.plot_no}}</option>
+                                    {% endfor %}                                 
+                                    
+                                </select> {% endcomment %}
+                                <select class="form-select" aria-label="Default select example" name="plot_number" required>
+                                    
+                                    <option selected> ---Select---</option>
+                                    {% for i in plot_no %}
+                                    <option value="{{i.plot_no}}">{{i.plot_no}}</option>
+                                    {% endfor %}                                 
+                                    
+                                </select>
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Payable Amount</label>
+                                <input class="form-control" id="timepicker" placeholder="Enter in INR" name="amount" value="{% for i in bookplot  %}{{i.Payable_amout}}{% endfor %}" >
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Monthly Installment</label>
+                                <input class="form-control" id="installment" placeholder="Enter in INR" name="Mnthly_installment" value="{% for i in bookplot  %}{{i.Mnthly_Installment}}{% endfor %}" >
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">No. of Installment</label>
+                                <input type="number" class="form-control" id="timepicker" placeholder="Enter in INR" name="no_Installment"value="{% for i in bookplot  %}{{i.number_of_Installment}}{% endfor %}" >
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name" value="{% for i in bookplot  %}{{i.name}}{% endfor %}" >
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Father's Name</label>
+                                <input type="text" class="form-control" name="father_name" id="father_name" value="{% for i in bookplot  %}{{i.father_name}}{% endfor %}" >
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Mobile Number</label>
+                                <input type="number" id="date-format" class="form-control" name="mobile_number" id="mobile_number" value="{% for i in bookplot  %}{{i.mobile_no}}{% endfor %}" >
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Payment Mode</label>
+                                <select class="form-select" aria-label="Default select example" name="payment_mode" required>
+                                    <option selected> ---Select---</option>
+                                    
+                                    <option value="Cash">Cash</option>
+                                    <option value="Online">Online</option>
+                                   
+                                    
+                                    
+                                </select>
+                                
+                                {% comment %} <select id="" class="form-control wide" name="payment_mode" >
+                                    <option value=""> --Select-- </option>
+                                    <option value="">Cash</option>
+                                    <option value="">Card</option>
+                                </select> {% endcomment %}
+                               
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Remarks</label>
+                                
+                                <input type="text" id="date-format" class="form-control" name="remarks" value="{% for i in bookplot  %}{{i.remarks}}{% endfor %}" >
+                            </div>
+                            
+
+                            <div >
+                                <div class="mb-3 cod-md-12 ">
+                                   <label class="form-label">Upload Receipt</label>
+                                   <input type="file" class="form-control" name = "receipt" value="{% for i in bookplot  %}{{i.receipt}}{% endfor %}">
+                                </div>
+                          
+                            
+                            {% comment %} <div class="col-xl-3 col-xxl-6 col-md-6">
+                                <label class="form-label">Upload Reciet</label>
+                                <select class="default-select  form-control wide ">
+                                    <option>Upload Reciet</option>
+                                </select>
+                            </div> {% endcomment %}
+                           
+                            <div class="col-xl-3 col-xxl-6 col-md-8 mb-3">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                            
+                            
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
+    {% endblock %}

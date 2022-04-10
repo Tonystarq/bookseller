@@ -1,0 +1,61 @@
+{% include 'AGENT/base_template.html' %}
+{% block content %}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="page-titles">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Support </a></li>
+                {% comment %} <li class="breadcrumb-item active"><a href="javascript:void(0)">Book Plot</a></li> {% endcomment %}
+            </ol>
+        </div>
+            <div class="col-12">
+                
+                <div class="card">
+                    <div class="card-header bg-dark ">
+                        <h4 class="card-title text-white">Compose New Message</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="{% url 'update_password' %}" enctype="multipart/form-data" method = "POST">
+                            {% csrf_token %}
+                        <div class="form-material">
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">select</label>
+                                <input type="text" class="form-control" name="ref_id", id="ref_id" >
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Subject</label>
+                                <input type="text" id="date-format" class="form-control" name="Taxt Here" >
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Enter Your Message</label>
+                                <input class="form-control" id="timepicker" placeholder="Text here" name="Text Here">
+                            </div>
+                              
+
+                            
+                          
+                            
+                            {% comment %} <div class="col-xl-3 col-xxl-6 col-md-6">
+                                <label class="form-label">Upload Reciet</label>
+                                <select class="default-select  form-control wide ">
+                                    <option>Upload Reciet</option>
+                                </select>
+                            </div> {% endcomment %}
+                           
+                            <div class="col-xl-3 col-xxl-6 col-md-8 mb-3">
+                                <button type="submit" class="btn btn-primary">Send</button>
+                            </div>
+                            
+                            
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
+    {% endblock %}

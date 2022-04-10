@@ -1,0 +1,62 @@
+{% load static %}
+<div class="nav-header">
+
+    <div class="nav-control">
+        <div class="hamburger">
+            <span class="line"></span><span class="line"></span><span class="line"></span>
+        </div>
+    </div>
+</div>
+
+<div class="header">
+    <div class="header-content">
+        <nav class="navbar navbar-expand">
+            <div class="collapse navbar-collapse justify-content-between">
+                <div class="header-left">
+                    <div class="dashboard_bar">
+                        <div class="search_bar dropdown">
+          <div class="dropdown-menu p-0 m-0">
+            <form>
+                <div class="input-group">
+                    <h4><a href="{% url 'Agent_Home' %}"class="btn btn-primary rounded light me-3">Welcome to Book Portal</a>&nbsp;<span> {{user.first_name}} {{user.last_name}} </span></h4>
+                 </div>	
+            </form>
+          </div>
+        </div>
+                    </div>
+                </div>
+
+                <ul class="navbar-nav header-right">
+     
+                    <li class="nav-item dropdown header-profile">
+                        <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown">
+          <div class="header-info">
+            <span class="text-black">{{user.username}}</span>
+            {% if user.user_type == '1' %}
+            <p class="fs-12 mb-0">Book Seller</p>
+            {% elif user.user_type == '2' %}
+            <p class="fs-12 mb-0">Customer</p>
+            {% else %}
+            <p class="fs-12 mb-0">None</p>
+            {% endif %}
+          </div>
+
+          {% if user.profile_pic == "" %}
+          <img src="{% static 'no_img.png' %}" width="20" alt="">
+          {% else %}
+          <img src="{{user.profile_pic.url}}" alt="User Image">
+          {% endif %}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            
+                            <a href="{% url 'logout' %}" class="dropdown-item ai-icon">
+                                <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                                <span class="ms-2">Logout </span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

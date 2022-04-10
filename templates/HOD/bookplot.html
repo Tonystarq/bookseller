@@ -1,0 +1,252 @@
+{% extends "base1.html" %}
+{% block content %}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="page-titles">
+            <label class="form-label text-primary font-weight-bold">Customer Id</label>
+            <form method="post">
+                {% csrf_token %}
+                <select name="user_id"  class="form-select">
+                
+                    <option value=""></option>
+                    {% for  cus_id in cus_id %}
+                    <option value="{{cus_id}}" {% if selected_customer_id == cus_id %}selected="selected"{% endif %}>{{cus_id}}</option>                
+                    {% endfor %}
+                </select> 
+                <label class="form-label text-primary font-weight-bold">Plot No</label>
+                <select name="plot_no"  class="form-select">
+                
+                    <option value=""></option>
+                    {% for  plot_num in plot_num %}
+                    <option value="{{plot_num}}" {% if selected_plot_no == plot_num %}selected="selected"{% endif %}>{{plot_num}}</option>                
+                    {% endfor %}
+                </select> 
+                <hr>
+                <input type="submit"  name="newsletter_sub" value="Search" class="btn btn-primary">
+            </form> 
+                 
+            {% comment %} <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Plot Booking</a></li>
+                 <li class="breadcrumb-item active"><a href="javascript:void(0)">Book Plot</a></li>
+            </ol> {% endcomment %}
+        </div>
+
+        {% comment %} <div class="card">
+            <form action="" method="POST" id="post-form">
+                {% csrf_token %}
+                <div class="px-4">
+                    <span class="text-primary">User Id</span> : <input type="text" name="searched" id="searched">
+                    <input type="submit" value="search" class="btn btn-primary">
+                </div> 
+                              
+            </form>
+            <center>
+                <select name="user_id"  onchange="demo()" class="form-select" id="selectcourse">
+                    <option value=""></option>
+                    {% for  i in customer_id %}
+                    <option value="{{i.customer_id}}">{{i.customer_id}}</option>                
+                    {% endfor %}
+                </select>
+                <h2></h2>
+         
+                {% if searched %}
+                <h1>you searched for {{searched}}</h1>
+                <br>
+                <label for="userid">User Id</label>
+                 
+                <input type="text" value="{% for venues in  venues %}{{venues.customer_id}}{% endfor %}">
+                <label for="userid">Customer Name</label>
+                <input type="text" value="{% for venues in  venues %}{{venues.customer_name}}{% endfor %}" id="customer_name">
+      
+                {% for venues in venues %}
+                <input type="text">
+                {{venues.customer_id}} -{{venues.customer_name}}
+                {% endfor %}
+                 {% else %}
+                 wrong keyword.......
+                {% endif %}
+      
+            </center> 
+            
+        </div> {% endcomment %}
+            <div class="col-12">
+                
+                <div class="card">
+                    <div class="card-header bg-dark ">
+                        <h4 class="card-title text-white">My Plot Booking</h4>
+                    </div>
+                    
+                        {% include 'includes/messages.html' %}
+                    
+                    <div class="card-body">
+                        <form action="{% url 'bookplot' %}" enctype="multipart/form-data" method = "POST">
+                            {% csrf_token %}
+                        <div class="form-material">
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Ref ID</label>
+                                <input type="text" class="form-control" name="ref_id" id="ref_id" value = "{{code}}" readonly >
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Customer ID</label>
+                                {% comment %} <input class="form-control" type="text" value="{% for venues in  venues %}{{venues.customer_id}}{% endfor %}" name="user_id" readonly> {% endcomment %}
+                                
+                              
+                                <input type="text" class="form-control" name="user_id" id="user_id" value = "{% if selected_customer_id %}{% for customer_Id in customer_Id %}{{ customer_Id.customer_id }}{% endfor %}{% endif %}" readonly >
+                                {% comment %} <input type="text" value="{% for venues in  venues %}{{venues.customer_id}}{% endfor %}">
+                            </div>
+                            </div>
+                           
+                            
+                            
+                               
+                                {% comment %} <input type="text" id="plot_number" class="form-control" name="plot_number"  > {% endcomment %}
+                                <div class="cod-md-12 mb-3">
+                                <label class="form-label">Plot Number</label>
+                                {% comment %} <select class="form-select" aria-label="Default select example" name="plot_number" required>
+                                    
+                                    <option selected> ---Select---</option>
+                                    {% for i in plot_number %}
+                                    <option value="{{i.plot_no}}">{{i.plot_no}}</option>
+                                    {% endfor %}  
+                                                                   
+                                    
+                                </select> {% endcomment %}
+                                <input class="form-control" id="timepicker"  name="plot_number" value="{% if selected_plot_no %}{% for plot_no  in plot_no  %}{{ plot_no.plot_no }}{% endfor %}{% endif %}" readonly>
+                            </div>
+                            <div class="cod-md-12 mb-3" >
+                                <label class="form-label">Payable Amount</label>
+                                <input type="text" class="form-control" id="timepicker" placeholder="Enter in INR" name="amount" value="{% if selected_plot_no %}{% for plot_no  in plot_no  %}{{ plot_no.plot_rate }}{% endfor %}{% endif %}" readonly>
+                            </div>
+                            <div class="cod-md-12 mb-3" >
+                                <label class="form-label">Mail</label>
+                                <input type="text" class="form-control" id="mail" placeholder="Enter in INR" name="mail" value="{% if selected_customer_id %}{% for customer_Id  in customer_Id  %}{{ customer_Id.mail }}{% endfor %}{% endif %}" readonly>
+                            </div>
+                            <div class="cod-md-12 mb-3" >
+                                <label class="form-label">Address</label>
+                                <input type="text" class="form-control" id="addresss" placeholder="Enter in INR" name="addresss" value="{% if selected_customer_id %}{% for customer_Id  in customer_Id  %}{{ customer_Id.addresss }}{% endfor %}{% endif %}" readonly>
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Plot Size</label>
+                                <input type="text" class="form-control" id="plot_size" placeholder="Enter in INR" name="plot_size" value="{% if selected_plot_no %}{% for plot_no  in plot_no  %}{{ plot_no.plot_size }}{% endfor %}{% endif %}" readonly>
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Booking Amount</label>
+                                <input type="text" class="form-control" id="timepicker" placeholder="Enter in INR" name="booking_amount" >
+                            </div>
+                            
+                           
+                            
+                            {% comment %} <div class="cod-md-12 mb-3">
+                                <label class="form-label">Monthly Installment</label>
+                                <input class="form-control" id="installment" placeholder="Enter in INR" name="Mnthly_installment" >
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">No. of Installment</label>
+                                <input type="number" class="form-control" id="timepicker" placeholder="Enter in INR" name="no_Installment" >
+                            </div> {% endcomment %}
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" name="name" value="{% if selected_customer_id %}{% for customer_Id in customer_Id %}{{customer_Id.customer_name}}{% endfor %}{% endif %}" readonly>
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Father's Name</label>
+                                <input type="text" class="form-control" name="father_name" id="father_name" value="{% if selected_customer_id %}{% for customer_Id in customer_Id %}{{customer_Id.cust_father_name}}{% endfor %}{% endif %}" readonly >
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Mobile Number</label>
+                                <input type="number" id="date-format" class="form-control" name="mobile_number" id="mobile_number" value="{% if selected_customer_id %}{% for customer_Id in customer_Id %}{{customer_Id.cust_mobileno}}{% endfor %}{% endif %}" readonly >
+                            </div>
+                            
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Payment Mode</label>
+                                <select class="form-select" aria-label="Default select example" name="payment_mode" >
+                                    <option selected> ---Select---</option>
+                                    
+                                    <option value="Cash">Cash</option>
+                                    <option value="Online">Online</option>
+                                   
+                                    
+                                    
+                                </select>
+                                
+                                {% comment %} <select id="" class="form-control wide" name="payment_mode" >
+                                    <option value=""> --Select-- </option>
+                                    <option value="">Cash</option>
+                                    <option value="">Card</option>
+                                </select> {% endcomment %}
+                               
+                            </div>
+                            <div class="cod-md-12 mb-3">
+                                <label class="form-label">Remarks</label>
+                                
+                                <input type="text" id="date-format" class="form-control" name="remarks" >
+                            </div>
+                            
+
+                            <div >
+                                <div class="mb-3 cod-md-12 ">
+                                   <label class="form-label">Upload Receipt</label>
+                                   <input type="file" class="form-control" name = "receipt" required>
+                                </div>
+                          
+                            
+                            {% comment %} <div class="col-xl-3 col-xxl-6 col-md-6">
+                                <label class="form-label">Upload Reciet</label>
+                                <select class="default-select  form-control wide ">
+                                    <option>Upload Reciet</option>
+                                </select>
+                            </div> {% endcomment %}
+                           
+                            <div class="col-xl-3 col-xxl-6 col-md-8 mb-3">
+                                <button type="submit" class="btn btn-primary" name="demo">Submit</button>
+                            </div>
+                            
+                            
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
+{% comment %} <script>
+    $(document).on('submit', '#post-form', function(e){
+        e.preventDefault();
+        $.ajax({
+            type:"POST",
+            url:'/HOD/bookplot/',
+            data:{
+                
+                email:$('#customer_name').val(),
+                email:$('#searched').val(),
+                
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+
+
+            },
+            success:function(data){
+                $('h2').html(data);
+
+            }
+        });
+    });
+</script> {% endcomment %}
+
+{% comment %} <script>
+    function demo() {
+
+      displayrate = document.querySelector("#selectcourse")
+      ans = displayrate.options[displayrate.selectedIndex].value;
+      alert(ans)
+      document.querySelector("#id_price").value = ans;
+      
+     
+    }
+
+  </script>  {% endcomment %}
+
+  {% endblock content %}
